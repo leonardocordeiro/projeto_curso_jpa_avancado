@@ -1,4 +1,6 @@
-<html ng-app="main">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<html>
 	<head>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<meta charset="UTF-8"></meta>
@@ -29,7 +31,7 @@
 									<div class="row">
 										
 											<div class="col-6 col-sm-6 col-lg-4">
-												<h4>Livro tal</h4>
+												<h4>Produto 1</h4>
 												<p>
 													<a href="#" 
 														class="block clearfix"> <img
@@ -89,7 +91,7 @@
 									<select class="form-control">
 										<option selected>Categoria</option>	
 										<option>Tecnologia</option>	
-										<option>Música</option>	
+										<option>MÃºsica</option>	
 										<option>Moda</option>
 									</select>
 								</p>
