@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -29,13 +33,13 @@
 								<div class="col-md-9 col-xs-12">
 
 									<div class="row">
-										
+										<c:forEach items="${produtos}" var="produto">
 											<div class="col-6 col-sm-6 col-lg-4">
-												<h4>Produto 1</h4>
+												<h4>${produto.nome}</h4>
 												<p>
 													<a href="#" 
 														class="block clearfix"> <img
-														src="#" >
+														src="${produto.linkDaFoto}" width="150" height="200">
 													</a>
 												<p>
 													<a class="btn btn-default"
@@ -43,34 +47,7 @@
 														mais</a>
 												</p>
 											</div>
-											<div class="col-6 col-sm-6 col-lg-4">
-												<h4>Livro tal</h4>
-												<p>
-													<a href="#" 
-														class="block clearfix"> <img
-														src="#" >
-													</a>
-												<p>
-													<a class="btn btn-default"
-														href="#" />Saiba
-														mais</a>
-												</p>
-											</div>
-											<div class="col-6 col-sm-6 col-lg-4">
-												<h4>Livro tal</h4>
-												<p>
-													<a href="#" 
-														class="block clearfix"> <img
-														src="#" >
-													</a>
-												<p>
-													<a class="btn btn-default"
-														href="#" />Saiba
-														mais</a>
-												</p>
-											</div>
-											
-										
+										</c:forEach>
 									</div>
 								</div>
 						</div>

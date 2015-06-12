@@ -2,7 +2,7 @@ package br.com.caelum;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class MyApplicationContextInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class Inicializador extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {

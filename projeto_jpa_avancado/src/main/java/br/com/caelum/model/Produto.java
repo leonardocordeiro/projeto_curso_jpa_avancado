@@ -3,14 +3,12 @@ package br.com.caelum.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Produto {
@@ -19,14 +17,30 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	private String linkDaFoto;
+	private double preco;
 
-	@JoinColumn(unique = true)
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	private Loja loja;
-
+	
 	@ManyToMany
-	@OneToOne(cascade = CascadeType.PERSIST)
 	private List<Categoria> categorias = new ArrayList<>();
+	
+	public String getLinkDaFoto() {
+		return linkDaFoto;
+	}
+	
+	public double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+
+	public void setLinkDaFoto(String linkDaFoto) {
+		this.linkDaFoto = linkDaFoto;
+	}
 
 	public Integer getId() {
 		return id;
