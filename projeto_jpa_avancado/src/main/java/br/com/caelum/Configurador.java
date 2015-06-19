@@ -4,22 +4,27 @@ import java.beans.PropertyVetoException;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import javax.transaction.TransactionManager;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+
 @Configuration
 @ComponentScan("br.com.caelum")
-public class Configurador {
+@EnableWebMvc
+public class Configurador extends WebMvcConfigurerAdapter {
 	
 	@Bean
 	public ViewResolver getViewResolver() {
@@ -61,6 +66,16 @@ public class Configurador {
 		return entityManagerFactory;
 	}
 
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addWebRequestInterceptor(getInterceptor());
+	}
+	
+	@Bean
+	public OpenEntityManagerInViewInterceptor getInterceptor() { 
+		return new OpenEntityManagerInViewInterceptor();
+	}
+	
 	@Bean
 	public JpaTransactionManager getTransactionManager(EntityManagerFactory emf) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();

@@ -45,19 +45,36 @@ public class CriadorDeProdutos {
 				
 				em.persist(loja3);
 
-				Produto produto = new Produto();
-				produto.setNome("Arquitetura e Design de Projetos Java");
-				produto.setLoja(loja1);
-				produto.setLinkDaFoto("http://www.arquiteturajava.com.br/img/capa-livro.png");
+				Produto livroDeArquitetura = new Produto();
+				livroDeArquitetura.setNome("Introduçao a Arquitetura Java e Design de projetos com Java");
+				livroDeArquitetura.setLoja(loja1);
+				livroDeArquitetura.setLinkDaFoto("http://www.arquiteturajava.com.br/img/capa-livro.png");
 				
-				em.persist(produto);
+				em.persist(livroDeArquitetura);
 				
-				Produto produto2 = new Produto();
-				produto2.setNome("Vire o jogo com Spring Framework");
-				produto2.setLoja(loja1);
-				produto2.setLinkDaFoto("http://cdn.shopify.com/s/files/1/0155/7645/products/spring-framework-featured_large.png?v=1411567960");
+				Produto livroDeSpring = new Produto();
+				livroDeSpring.setNome("Vire o jogo com Spring Framework");
+				livroDeSpring.setLoja(loja1);
+				livroDeSpring.setLinkDaFoto("http://cdn.shopify.com/s/files/1/0155/7645/products/spring-framework-featured_large.png?v=1411567960");
 				
-				em.persist(produto2);
+				em.persist(livroDeSpring);
+				
+				Produto violao = new Produto();
+				violao.setNome("Violão");
+				violao.setLoja(loja2);
+				violao.setLinkDaFoto("http://www.marillac.g12.br/imgs/atividade%20complementar/violao.jpg");
+				
+				em.persist(violao);
+				
+				Produto flauta = new Produto();
+				flauta.setNome("Flauta Doce");
+				flauta.setLoja(loja2);
+				flauta.setLinkDaFoto("http://i.mlcdn.com.br/1500x1500/flauta-doce-germanicayamaha-yrs-23g-204013000.jpg");
+				
+				em.persist(flauta);
+
+				
+				
 			}
 		});		
 	}

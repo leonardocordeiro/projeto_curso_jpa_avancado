@@ -22,26 +22,12 @@
 							Produtos
 						</div>
 						<div class="panel-body">
-							
-							<div class="row">
-								<c:forEach items="${produtos}" var="produto">
-									<div class="col-sm-6 col-lg-4">
-										<h4>${produto.nome}</h4>
-										<p>
-											<a href="<c:url value="/produto/${produto.id}" />" 
-												class="block clearfix"> <img
-												src="${produto.linkDaFoto}" width="150" height="200">
-											</a>
-										<p>
-											<a class="btn btn-default"
-												href="<c:url value="/produto/${produto.id}" />" />Saiba
-												mais
-											</a>
-										</p>
-									</div>
-								</c:forEach>									
-							</div> <!-- fim row -->
-							
+							<div class="container">
+								<h3>${produto.nome}</h3>
+								<legend></legend>
+								<img src="${produto.linkDaFoto}" width="200" height="300">
+								
+							</div>									
 						</div>	<!-- fim panel_body -->
 					</div>
 				</div>
