@@ -1,6 +1,5 @@
 package br.com.caelum.controller;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -29,7 +28,6 @@ public class HomeController {
 	public String home(Model model) {
 		
 		List<Produto> produtos = produtoDao.getProdutos();
-		
 		
 		model.addAttribute("produtos", produtos);
 		return "home";

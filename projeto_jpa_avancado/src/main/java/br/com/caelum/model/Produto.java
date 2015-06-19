@@ -3,6 +3,7 @@ package br.com.caelum.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,14 +19,34 @@ public class Produto {
 	private Integer id;
 	private String nome;
 	private String linkDaFoto;
+	
+	@Column(columnDefinition="TEXT")
+	private String descricao;
+	
 	private double preco;
-
+	
 	@ManyToOne
 	private Loja loja;
 	
 	@ManyToMany
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
 	public String getLinkDaFoto() {
 		return linkDaFoto;
 	}

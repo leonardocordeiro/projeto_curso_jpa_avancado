@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -19,14 +20,25 @@
 				<div class="col-sm-8">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							Produtos
+							${produto.loja.nome}
 						</div>
 						<div class="panel-body">
 							<div class="container">
 								<h3>${produto.nome}</h3>
-								<legend></legend>
-								<img src="${produto.linkDaFoto}" width="200" height="300">
-								
+								<div class="col-sm-7">
+									<legend></legend>
+									<div class="col-sm-5">
+										<img src="${produto.linkDaFoto}" width="200" height="300">
+									</div>
+									<div class="col-sm-7">
+										<p>${produto.descricao}</p>
+										<br/>
+										<h3>
+											<fmt:formatNumber type="currency" value="${produto.preco}" />
+										</h3>
+										
+									</div>
+								</div>
 							</div>									
 						</div>	<!-- fim panel_body -->
 					</div>
@@ -45,7 +57,7 @@
 									<select class="form-control">
 										<option selected>Categoria</option>	
 										<option>Tecnologia</option>	
-										<option>MÃºsica</option>	
+										<option>Música</option>	
 										<option>Moda</option>
 									</select>
 								</p>
