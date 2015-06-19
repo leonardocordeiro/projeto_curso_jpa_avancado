@@ -2,23 +2,19 @@ package br.com.caelum.controller;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.caelum.dao.ProdutoDao;
 import br.com.caelum.model.Produto;
 
 @Controller
 public class HomeController {
-	
-	@PersistenceContext
-	private EntityManager em;
 	
 	@Autowired
 	private ProdutoDao produtoDao;
@@ -41,4 +37,13 @@ public class HomeController {
 		model.addAttribute("produto", produto);
 		return "saber_mais";
 	}	
+	
+	@RequestMapping(value="/produtos", method=RequestMethod.POST)
+	public String produtos(@RequestParam String nome, @RequestParam String categoria, @RequestParam String loja) {
+		System.out.println("oi");
+		System.out.println(nome + " " + categoria + " " + loja);
+		
+		return null;
+		
+	}
 }

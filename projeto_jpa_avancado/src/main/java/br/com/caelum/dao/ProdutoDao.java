@@ -21,11 +21,6 @@ public class ProdutoDao {
 				.createQuery("from Produto", Produto.class)
 				.getResultList();
 		
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-		}
-		
 		return produtos;
 		
 	}
