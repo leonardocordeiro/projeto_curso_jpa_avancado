@@ -11,6 +11,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import br.com.caelum.model.Categoria;
 import br.com.caelum.model.Loja;
 import br.com.caelum.model.Produto;
 
@@ -44,11 +45,18 @@ public class CriadorDeProdutos {
 				loja3.setNome("Papelaria do Nico");
 				
 				em.persist(loja3);
-
+				
+				Categoria tecnologia = new Categoria("Tecnologia");
+				em.persist(tecnologia);
+				
+				Categoria musica = new Categoria("Música");
+				em.persist(musica);
+				
 				Produto livroDeArquitetura = new Produto();
 				livroDeArquitetura.setNome("Introduçao a Arquitetura Java e Design de projetos com Java");
 				livroDeArquitetura.setLoja(loja1);
 				livroDeArquitetura.setPreco(30.0);
+				livroDeArquitetura.adicionarCategorias(tecnologia);
 				livroDeArquitetura.setDescricao("Neste livro, os autores, conhecidos especialistas da "
 											   + " área, apresentam muitos tópicos que aparecem com frequência"
 											   + " na plataforma Java, incluindo desde modelagem e design das "
@@ -65,6 +73,7 @@ public class CriadorDeProdutos {
 				livroDeSpring.setNome("Vire o jogo com Spring Framework");
 				livroDeSpring.setLoja(loja1);
 				livroDeSpring.setPreco(30.0);
+				livroDeSpring.adicionarCategorias(tecnologia);
 				livroDeSpring.setDescricao("Criado para simplificar o desenvolvimento de aplicações Java, "
 						+ "o Spring se tornou um dos frameworks de mais destaque dentro desse grande ambiente.  "
 						+ "Aprenda muito mais que o básico do Spring, desde o tradicional Container de Inversão "
@@ -80,6 +89,7 @@ public class CriadorDeProdutos {
 				violao.setLoja(loja2);
 				violao.setDescricao("Excelente violão");
 				violao.setPreco(500.0);
+				violao.adicionarCategorias(musica);
 				violao.setLinkDaFoto("http://www.marillac.g12.br/imgs/atividade%20complementar/violao.jpg");
 				
 				em.persist(violao);
@@ -89,6 +99,7 @@ public class CriadorDeProdutos {
 				flauta.setLoja(loja2);
 				flauta.setDescricao("Flauta doce");
 				flauta.setPreco(300.0);
+				flauta.adicionarCategorias(musica);
 				flauta.setLinkDaFoto("http://i.mlcdn.com.br/1500x1500/flauta-doce-germanicayamaha-yrs-23g-204013000.jpg");
 				
 				em.persist(flauta);

@@ -7,14 +7,14 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">Buscar por:</div>
 		<div class="panel-body">
-			<form class="form-group" method="post">
+			<form class="form-group" method="post" action="produtos">
 				<p>
 					<input type="text" name="nome" class="form-control"
 						placeholder="Nome">
 				</p>
 				<p>
 					<select class="form-control" name="categoria">
-						<option selected>Categoria</option>
+						<option selected value="">Categoria</option>
 						<option value="tecnologia">Tecnologia</option>
 						<option value="musica">Música</option>
 						<option value="moda">Moda</option>
@@ -22,7 +22,7 @@
 				</p>
 				<p>
 					<select class="form-control" name="loja">
-						<option selected>Loja</option>
+						<option selected value="">Loja</option>
 						<option value="lalala">Loja 1</option>
 						<option>Loja 2</option>
 						<option>Loja 3</option>

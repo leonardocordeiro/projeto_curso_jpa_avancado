@@ -4,6 +4,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
@@ -29,5 +34,31 @@ public class ProdutoDao {
 		
 		Produto produto = em.find(Produto.class, id);
 		return produto;
+	}
+
+	public List<Produto> getProdutos(String nome, String categoria, String loja) {
+		
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Produto> query = builder.createQuery(Produto.class);
+		Root<Produto> from = query.from(Produto.class);
+		
+		Predicate conjuncao = builder.conjunction();
+		
+		if(!nome.isEmpty()) { 
+			Path<String> nomeProduto = from.<String>get("nome");
+			conjuncao = builder.and(builder.equal(nomeProduto, nome));
+		}
+		
+		if(!categoria.isEmpty()) { 
+			Path<List<String>> categoriaProduto = from.<List<String>>get("categorias");
+			//conjuncao = builder.and(conjuncao, builder.like(categoriaProduto, "a"));
+		}
+		
+		if(!loja.isEmpty()) { 
+			Path<String> nomeLoja = from.<String>get("loja.nome");
+			conjuncao = builder.and(conjuncao, builder.equal(nomeLoja, loja));
+		}
+		
+		return em.createQuery(query.where(conjuncao)).getResultList();
 	}	
 }

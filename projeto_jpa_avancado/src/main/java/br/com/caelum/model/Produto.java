@@ -43,8 +43,10 @@ public class Produto {
 		return categorias;
 	}
 
-	public void setCategorias(List<Categoria> categorias) {
-		this.categorias = categorias;
+	public void adicionarCategorias(Categoria... categorias) {
+		for (Categoria categoria : categorias) {
+			this.categorias.add(categoria);
+		}
 	}
 
 	public String getLinkDaFoto() {

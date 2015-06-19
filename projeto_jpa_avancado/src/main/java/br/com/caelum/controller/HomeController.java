@@ -19,7 +19,6 @@ public class HomeController {
 	@Autowired
 	private ProdutoDao produtoDao;
 	
-	
 	@RequestMapping("/")
 	public String home(Model model) {
 		
@@ -39,11 +38,15 @@ public class HomeController {
 	}	
 	
 	@RequestMapping(value="/produtos", method=RequestMethod.POST)
-	public String produtos(@RequestParam String nome, @RequestParam String categoria, @RequestParam String loja) {
-		System.out.println("oi");
-		System.out.println(nome + " " + categoria + " " + loja);
+	public String produtos(Model model,
+							@RequestParam String nome, 
+							@RequestParam String categoria,
+							@RequestParam String loja) {
 		
-		return null;
+		List<Produto> produtos = produtoDao.getProdutos(nome, categoria, loja);
+		
+		model.addAttribute("produtos", produtos);		
+		return "home";
 		
 	}
 }
