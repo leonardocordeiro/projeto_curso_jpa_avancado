@@ -16,6 +16,12 @@ public class Categoria {
 	public Categoria(String nome) {
 		this.nome = nome;
 	}
+	
+	// Para hibernate
+	@SuppressWarnings("unused")
+	private Categoria() { 
+		
+	}
 
 	public Integer getId() {
 		return id;

@@ -5,7 +5,6 @@ import java.beans.PropertyVetoException;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -68,11 +67,11 @@ public class Configurador extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addWebRequestInterceptor(getInterceptor());
+		registry.addWebRequestInterceptor(getOpenEMInViewInterceptor());
 	}
 	
 	@Bean
-	public OpenEntityManagerInViewInterceptor getInterceptor() { 
+	public OpenEntityManagerInViewInterceptor getOpenEMInViewInterceptor() { 
 		return new OpenEntityManagerInViewInterceptor();
 	}
 	

@@ -39,12 +39,11 @@ public class HomeController {
 	
 	@RequestMapping(value="/produtos", method=RequestMethod.POST)
 	public String produtos(Model model,
-							@RequestParam String nome, 
-							@RequestParam String categoria,
-							@RequestParam String loja) {
+			@RequestParam String nome, 
+			@RequestParam String categoria,
+			@RequestParam String loja) {
 		
 		List<Produto> produtos = produtoDao.getProdutos(nome, categoria, loja);
-		
 		model.addAttribute("produtos", produtos);		
 		return "home";
 		
