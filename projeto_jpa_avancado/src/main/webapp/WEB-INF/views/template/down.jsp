@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 </div>
 </div>
 <div class="col-sm-4">
 	<div class="panel panel-default">
 		<div class="panel-heading">Buscar por:</div>
 		<div class="panel-body">
-			<form class="form-group" method="post" action="produtos">
+			<form class="form-group" method="post" action="<c:url value="/produtos"/>">
 				<p>
 					<input type="text" name="nome" class="form-control"
 						placeholder="Nome">
@@ -15,17 +17,17 @@
 				<p>
 					<select class="form-control" name="categoria">
 						<option selected value="">Categoria</option>
-						<option value="tecnologia">Tecnologia</option>
-						<option value="musica">Música</option>
-						<option value="moda">Moda</option>
+						<c:forEach items="${categorias}" var="categoria">
+							<option value="${categoria.nome}">${categoria.nome}</option>
+						</c:forEach>
 					</select>
 				</p>
 				<p>
 					<select class="form-control" name="loja">
 						<option selected value="">Loja</option>
-						<option value="lalala">Loja 1</option>
-						<option>Loja 2</option>
-						<option>Loja 3</option>
+						<c:forEach items="${lojas}" var="loja">
+							<option value="${loja.nome}">${loja.nome}</option>
+						</c:forEach>
 					</select>
 				</p>
 				<p>

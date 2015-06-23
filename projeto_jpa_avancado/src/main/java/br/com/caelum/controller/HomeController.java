@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.caelum.dao.CategoriaDao;
+import br.com.caelum.dao.LojaDao;
 import br.com.caelum.dao.ProdutoDao;
+import br.com.caelum.model.Categoria;
+import br.com.caelum.model.Loja;
 import br.com.caelum.model.Produto;
 
 @Controller
@@ -19,12 +23,23 @@ public class HomeController {
 	@Autowired
 	private ProdutoDao produtoDao;
 	
+	@Autowired
+	private LojaDao lojaDao;
+	
+	@Autowired
+	private CategoriaDao categoriaDao;
+	
 	@RequestMapping("/")
 	public String home(Model model) {
 		
 		List<Produto> produtos = produtoDao.getProdutos();
+		List<Loja> lojas = lojaDao.getLojas();
+		List<Categoria> categorias = categoriaDao.getCategorias();
 		
 		model.addAttribute("produtos", produtos);
+		model.addAttribute("lojas", lojas);
+		model.addAttribute("categorias", categorias);
+		
 		return "home";
 	}
 	
@@ -32,8 +47,13 @@ public class HomeController {
 	public String produto(@PathVariable Integer id, Model model) {
 		
 		Produto produto = produtoDao.getProduto(id);
+		List<Loja> lojas = lojaDao.getLojas();
+		List<Categoria> categorias = categoriaDao.getCategorias();
 		
 		model.addAttribute("produto", produto);
+		model.addAttribute("lojas", lojas);
+		model.addAttribute("categorias", categorias);
+		
 		return "saber_mais";
 	}	
 	
@@ -44,7 +64,12 @@ public class HomeController {
 			@RequestParam String loja) {
 		
 		List<Produto> produtos = produtoDao.getProdutos(nome, categoria, loja);
-		model.addAttribute("produtos", produtos);		
+		List<Loja> lojas = lojaDao.getLojas();
+		List<Categoria> categorias = categoriaDao.getCategorias();
+		
+		model.addAttribute("produto", produtos);
+		model.addAttribute("lojas", lojas);
+		model.addAttribute("categorias", categorias);		
 		return "home";
 		
 	}

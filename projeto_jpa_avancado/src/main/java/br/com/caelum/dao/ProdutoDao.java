@@ -19,7 +19,7 @@ public class ProdutoDao {
 	public List<Produto> getProdutos() {
 
 		List<Produto> produtos = em.createQuery("from Produto", Produto.class)
-				.getResultList();
+								   .getResultList();
 
 		return produtos;
 
@@ -59,7 +59,6 @@ public class ProdutoDao {
 			query.setParameter("pNome", nome);
 
 		List<Produto> resultList = query.getResultList();
-		System.out.println("Nome: " + nome);
 
 		return resultList;
 
