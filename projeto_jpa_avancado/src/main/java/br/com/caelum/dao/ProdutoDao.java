@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -22,10 +23,10 @@ public class ProdutoDao {
 	private EntityManager em;
 
 	public List<Produto> getProdutos() {
-		List<Produto> produtos = em.createQuery("from Produto", Produto.class)
-				.getResultList();
+		TypedQuery<Produto> query = em.createQuery("from Produto", Produto.class);
+		query.setHint("org.hibernate.cacheable", "true"); 
 
-		return produtos;
+		return query.getResultList();
 
 	}
 

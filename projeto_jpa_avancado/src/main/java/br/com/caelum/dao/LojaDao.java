@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
@@ -16,8 +17,10 @@ public class LojaDao {
 	private EntityManager em;
 	
 	public List<Loja> getLojas() { 
-		return em.createQuery("from Loja", Loja.class)
-				 .getResultList();
+		TypedQuery<Loja> query = em.createQuery("from Loja", Loja.class);
+		query.setHint("org.hibernate.cacheable", "true");
+		
+		return query.getResultList();
 	}
 
 }
