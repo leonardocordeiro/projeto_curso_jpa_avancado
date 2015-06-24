@@ -69,7 +69,8 @@ public class HomeController {
 		
 		model.addAttribute("produtos", produtos);
 		model.addAttribute("lojas", lojas);
-		model.addAttribute("categorias", categorias);		
+		model.addAttribute("categorias", categorias);	
+		
 		return "home";
 		
 	}

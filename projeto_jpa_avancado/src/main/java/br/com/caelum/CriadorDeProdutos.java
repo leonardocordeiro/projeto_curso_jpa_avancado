@@ -31,20 +31,20 @@ public class CriadorDeProdutos {
 			@Override
 			protected void doInTransactionWithoutResult(TransactionStatus status) {
 				
-				Loja loja1 = new Loja();
-				loja1.setNome("Casa do Código");
+				Loja casaDoCodigo = new Loja();
+				casaDoCodigo.setNome("Casa do Código");
 				
-				em.persist(loja1);
+				em.persist(casaDoCodigo);
 				
-				Loja loja2= new Loja();
-				loja2.setNome("Musical Alegre");
+				Loja musicalAlegre = new Loja();
+				musicalAlegre.setNome("Musical Alegre");
 				
-				em.persist(loja2);
+				em.persist(musicalAlegre);
 				
-				Loja loja3 = new Loja();
-				loja3.setNome("Papelaria do Nico");
+				Loja papelaria = new Loja();
+				papelaria.setNome("Papelaria de Campo Grande");
 				
-				em.persist(loja3);
+				em.persist(papelaria);
 				
 				Categoria tecnologia = new Categoria("Tecnologia");
 				em.persist(tecnologia);
@@ -52,9 +52,18 @@ public class CriadorDeProdutos {
 				Categoria musica = new Categoria("Música");
 				em.persist(musica);
 				
+				Produto proTools = new Produto();
+				proTools.setNome("ProTools");
+				proTools.setLoja(musicalAlegre);
+				proTools.setPreco(400.0);
+				proTools.adicionarCategorias(tecnologia, musica);
+				proTools.setLinkDaFoto("http://apps.avid.com/campaigns/2013/pro-tools-11-demo/assets/images/ProTools11Demo_Video_780x453.png");
+				
+				em.persist(proTools);
+				
 				Produto livroDeArquitetura = new Produto();
 				livroDeArquitetura.setNome("Introduçao a Arquitetura Java e Design de projetos com Java");
-				livroDeArquitetura.setLoja(loja1);
+				livroDeArquitetura.setLoja(casaDoCodigo);
 				livroDeArquitetura.setPreco(30.0);
 				livroDeArquitetura.adicionarCategorias(tecnologia);
 				livroDeArquitetura.setDescricao("Neste livro, os autores, conhecidos especialistas da "
@@ -71,7 +80,7 @@ public class CriadorDeProdutos {
 				
 				Produto livroDeSpring = new Produto();
 				livroDeSpring.setNome("Vire o jogo com Spring Framework");
-				livroDeSpring.setLoja(loja1);
+				livroDeSpring.setLoja(casaDoCodigo);
 				livroDeSpring.setPreco(30.0);
 				livroDeSpring.adicionarCategorias(tecnologia);
 				livroDeSpring.setDescricao("Criado para simplificar o desenvolvimento de aplicações Java, "
@@ -86,7 +95,7 @@ public class CriadorDeProdutos {
 				
 				Produto violao = new Produto();
 				violao.setNome("Violão");
-				violao.setLoja(loja2);
+				violao.setLoja(musicalAlegre);
 				violao.setDescricao("Excelente violão");
 				violao.setPreco(500.0);
 				violao.adicionarCategorias(musica);
@@ -96,7 +105,7 @@ public class CriadorDeProdutos {
 				
 				Produto flauta = new Produto();
 				flauta.setNome("Flauta Doce");
-				flauta.setLoja(loja2);
+				flauta.setLoja(musicalAlegre);
 				flauta.setDescricao("Flauta doce");
 				flauta.setPreco(300.0);
 				flauta.adicionarCategorias(musica);
