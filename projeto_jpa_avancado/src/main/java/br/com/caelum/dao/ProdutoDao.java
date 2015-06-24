@@ -42,7 +42,7 @@ public class ProdutoDao {
 			builder.append("where ");
 		
 		if (!loja.isEmpty()) 
-			builder.append("p.loja = :pLoja and ");
+			builder.append("p.loja.nome = :pLoja and ");
 		if (!nome.isEmpty()) 
 			builder.append("p.nome like :pNome and ");
 

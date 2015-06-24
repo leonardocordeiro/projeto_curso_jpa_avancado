@@ -67,7 +67,7 @@ public class HomeController {
 		List<Loja> lojas = lojaDao.getLojas();
 		List<Categoria> categorias = categoriaDao.getCategorias();
 		
-		model.addAttribute("produto", produtos);
+		model.addAttribute("produtos", produtos);
 		model.addAttribute("lojas", lojas);
 		model.addAttribute("categorias", categorias);		
 		return "home";

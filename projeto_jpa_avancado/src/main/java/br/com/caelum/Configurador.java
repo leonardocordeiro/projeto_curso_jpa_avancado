@@ -1,7 +1,6 @@
 package br.com.caelum;
 
 import java.beans.PropertyVetoException;
-
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
