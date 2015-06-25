@@ -13,6 +13,12 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+
+@Filter(name="CasaDoCodigo", condition="loja_id=1")
+@FilterDef(name="CasaDoCodigo")
 
 @Entity
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

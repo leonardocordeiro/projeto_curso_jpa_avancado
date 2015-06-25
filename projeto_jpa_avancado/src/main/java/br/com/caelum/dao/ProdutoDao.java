@@ -12,8 +12,11 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import br.com.caelum.model.Loja;
 import br.com.caelum.model.Produto;
 
 @Repository
@@ -23,10 +26,12 @@ public class ProdutoDao {
 	private EntityManager em;
 
 	public List<Produto> getProdutos() {
-		TypedQuery<Produto> query = em.createQuery("from Produto", Produto.class);
-		query.setHint("org.hibernate.cacheable", "true"); 
+		Session session = (Session) em.getDelegate();
+		Query query = session.createQuery("from Produto p");
+		
+		session.enableFilter("CasaDoCodigo");
 
-		return query.getResultList();
+		return query.list();
 
 	}
 

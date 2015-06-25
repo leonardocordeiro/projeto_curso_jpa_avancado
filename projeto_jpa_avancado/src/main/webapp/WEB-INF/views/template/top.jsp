@@ -14,6 +14,17 @@
 		<nav class="navbar navbar-inverse" role="navigation">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="<c:url value='/' />">Home</a>
-			</div>				
+			</div>
+			<form class="navbar-form navbar-left" role="search">
+				<div class="form-group">
+					<select class="form-control">
+						<option>Lojas</option>
+						<c:forEach items="${lojas}" var="loja">
+							<option>${loja.nome}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<button type="submit" class="btn btn-default">Pesquisar</button>
+			</form>
 		</nav>
-		
+			

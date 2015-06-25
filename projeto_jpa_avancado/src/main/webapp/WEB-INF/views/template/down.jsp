@@ -23,14 +23,6 @@
 					</select>
 				</p>
 				<p>
-					<select class="form-control" name="loja">
-						<option selected value="">Loja</option>
-						<c:forEach items="${lojas}" var="loja">
-							<option value="${loja.nome}">${loja.nome}</option>
-						</c:forEach>
-					</select>
-				</p>
-				<p>
 					<input type="submit" class="btn btn-primary form-control"
 						value="Buscar">
 				</p>
