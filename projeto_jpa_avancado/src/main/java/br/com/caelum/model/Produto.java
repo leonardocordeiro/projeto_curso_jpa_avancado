@@ -15,10 +15,18 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.Filters;
 
-@Filter(name="CasaDoCodigo", condition="loja_id=1")
-@FilterDef(name="CasaDoCodigo")
+@Filters({
+	@Filter(name="Casa do Código", condition="loja_id=1"),
+	@Filter(name="Musical Alegre", condition="loja_id=2")
+})
+
+@FilterDefs({
+	@FilterDef(name="Casa do Código"),
+	@FilterDef(name="Musical Alegre")
+})
 
 @Entity
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

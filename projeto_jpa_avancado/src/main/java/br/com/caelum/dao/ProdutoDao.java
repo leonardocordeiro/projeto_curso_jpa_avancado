@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -12,11 +11,9 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
-import br.com.caelum.model.Loja;
 import br.com.caelum.model.Produto;
 
 @Repository
@@ -24,15 +21,20 @@ public class ProdutoDao {
 
 	@PersistenceContext
 	private EntityManager em;
-
+	private String tenancy;
+	
+	public void setTenancy(String tenancy) { 
+		this.tenancy = tenancy;
+	}
+	
 	public List<Produto> getProdutos() {
 		Session session = (Session) em.getDelegate();
-		Query query = session.createQuery("from Produto p");
 		
-		session.enableFilter("CasaDoCodigo");
+		if(tenancy != null && !tenancy.isEmpty())
+			session.enableFilter(tenancy);
 
-		return query.list();
-
+		return session.createQuery("from Produto p").list();
+		
 	}
 
 	public Produto getProduto(Integer id) {

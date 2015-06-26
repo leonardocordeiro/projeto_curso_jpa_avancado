@@ -1,12 +1,15 @@
 package br.com.caelum;
 
 import java.beans.PropertyVetoException;
+import java.util.List;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor;
@@ -16,13 +19,64 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import br.com.caelum.dao.CategoriaDao;
+import br.com.caelum.dao.LojaDao;
+import br.com.caelum.dao.ProdutoDao;
+import br.com.caelum.model.Categoria;
+import br.com.caelum.model.Loja;
+import br.com.caelum.model.Produto;
+
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 
+@EnableWebMvc
 @Configuration
 @ComponentScan("br.com.caelum")
-@EnableWebMvc
 public class Configurador extends WebMvcConfigurerAdapter {
+	
+	/***
+	 * @TODO
+	 * Método lista de produtos, categorias
+	 */
+	
+	@Bean
+	public ProdutoDao produtoDao() { 
+		return new ProdutoDao();
+	}
+	
+	@Bean
+	public LojaDao lojaDao() { 
+		return new LojaDao();
+	}
+
+	@Bean
+	public CategoriaDao categoriaDao() { 
+		return new CategoriaDao();
+	}
+	
+	@Bean
+	@Lazy(true)
+	public List<Produto> produtos(ProdutoDao produtoDao) {
+		List<Produto> produtos = produtoDao.getProdutos();
+		
+		return produtos;
+	}
+	
+	@Bean
+	@Lazy(true)
+	public List<Categoria> categorias(CategoriaDao categoriaDao) { 
+		List<Categoria> categorias = categoriaDao.getCategorias();
+		
+		return categorias;
+	}
+	
+	@Bean
+	@Lazy(true)
+	public List<Loja> lojas(LojaDao lojaDao) { 
+		List<Loja> lojas = lojaDao.getLojas();
+		
+		return lojas;
+	}
 	
 	@Bean
 	public ViewResolver getViewResolver() {
@@ -30,11 +84,13 @@ public class Configurador extends WebMvcConfigurerAdapter {
 
 		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
+		
+		viewResolver.setExposeContextBeansAsAttributes(true);
 
 		return viewResolver;
 	}
 
-	@Bean(destroyMethod = "close")
+	@Bean(destroyMethod="close")
 	public DataSource getDataSource() {
 		ComboPooledDataSource ds = new ComboPooledDataSource();
 		try {
