@@ -26,7 +26,7 @@
 					<select class="form-control" name="loja">
 						<option selected value="">Loja</option>
 						<c:forEach items="${lojas}" var="loja">
-							<option value="${loja.nome}">${loja.nome}</option>
+							<option value="${loja.id}">${loja.nome}</option>
 						</c:forEach>
 					</select>
 				</p>

@@ -16,12 +16,12 @@
 				<a class="navbar-brand" href="<c:url value='/' />">Home</a>
 				<a class="navbar-brand" href="<c:url value='/produto' />">Novo produto</a>
 			</div>
-			<form class="navbar-form navbar-left" role="search" action="<c:url value="tenancy" />">
+			<form class="navbar-form navbar-left" role="search" action="<c:url value="/tenancy" />">
 				<div class="form-group">
-					<select class="form-control" name="tenancy">
-						<option>Lojas</option>
+					<select class="form-control" name="lojaId">
+						<option value="">Lojas</option>
 						<c:forEach items="${lojas}" var="loja">
-							<option value="${loja.nome}">${loja.nome}</option>
+							<option value="${loja.id}">${loja.nome}</option>
 						</c:forEach>
 					</select>
 				</div>

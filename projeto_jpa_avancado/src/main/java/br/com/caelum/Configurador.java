@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor;
@@ -34,11 +34,6 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @ComponentScan("br.com.caelum")
 public class Configurador extends WebMvcConfigurerAdapter {
 	
-	/***
-	 * @TODO
-	 * Método lista de produtos, categorias
-	 */
-	
 	@Bean
 	public ProdutoDao produtoDao() { 
 		return new ProdutoDao();
@@ -55,7 +50,7 @@ public class Configurador extends WebMvcConfigurerAdapter {
 	}
 	
 	@Bean
-	@Lazy(true)
+	@Scope("request")
 	public List<Produto> produtos(ProdutoDao produtoDao) {
 		List<Produto> produtos = produtoDao.getProdutos();
 		
@@ -63,7 +58,6 @@ public class Configurador extends WebMvcConfigurerAdapter {
 	}
 	
 	@Bean
-	@Lazy(true)
 	public List<Categoria> categorias(CategoriaDao categoriaDao) { 
 		List<Categoria> categorias = categoriaDao.getCategorias();
 		
@@ -71,7 +65,6 @@ public class Configurador extends WebMvcConfigurerAdapter {
 	}
 	
 	@Bean
-	@Lazy(true)
 	public List<Loja> lojas(LojaDao lojaDao) { 
 		List<Loja> lojas = lojaDao.getLojas();
 		
@@ -97,7 +90,7 @@ public class Configurador extends WebMvcConfigurerAdapter {
 			ds.setDriverClass("com.mysql.jdbc.Driver");
 			ds.setMinPoolSize(3);
 			ds.setMaxIdleTime(30);
-			ds.setMaxPoolSize(10);
+			ds.setMaxPoolSize(5);
 			ds.setAcquireIncrement(1);
 
 		} catch (PropertyVetoException e) {

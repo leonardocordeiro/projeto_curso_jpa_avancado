@@ -1,3 +1,4 @@
+
 package br.com.caelum.model;
 
 import java.util.ArrayList;
@@ -20,12 +21,15 @@ import org.hibernate.annotations.Filters;
 
 @Filters({
 	@Filter(name="Casa do Código", condition="loja_id=1"),
-	@Filter(name="Musical Alegre", condition="loja_id=2")
+	@Filter(name="Musical Alegre", condition="loja_id=2"),
+	@Filter(name="Papelaria de Campo Grande", condition="loja_id=3")
 })
 
 @FilterDefs({
 	@FilterDef(name="Casa do Código"),
-	@FilterDef(name="Musical Alegre")
+	@FilterDef(name="Musical Alegre"),
+	@FilterDef(name="Papelaria de Campo Grande")
+	
 })
 
 @Entity

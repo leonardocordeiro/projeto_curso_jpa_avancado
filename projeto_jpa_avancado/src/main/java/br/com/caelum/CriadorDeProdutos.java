@@ -113,6 +113,9 @@ public class CriadorDeProdutos {
 				
 				em.persist(flauta);
 				
+
+				
+				
 			}
 		});		
 	}

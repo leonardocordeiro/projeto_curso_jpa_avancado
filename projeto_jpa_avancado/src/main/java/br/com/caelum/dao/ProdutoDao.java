@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import br.com.caelum.model.Loja;
 import br.com.caelum.model.Produto;
 
 @Repository
@@ -21,18 +22,10 @@ public class ProdutoDao {
 
 	@PersistenceContext
 	private EntityManager em;
-	private String tenancy;
-	
-	public void setTenancy(String tenancy) { 
-		this.tenancy = tenancy;
-	}
 	
 	public List<Produto> getProdutos() {
 		Session session = (Session) em.getDelegate();
 		
-		if(tenancy != null && !tenancy.isEmpty())
-			session.enableFilter(tenancy);
-
 		return session.createQuery("from Produto p").list();
 		
 	}
@@ -42,18 +35,18 @@ public class ProdutoDao {
 		return produto;
 	}
 
-	public List<Produto> getProdutos(String nome, String categoria, String loja) {
+	public List<Produto> getProdutos(String nome, String categoria, Integer lojaId) {
 		// Começar com JPQL
 		
 		// String jpql = "select p from Produto p ";
 		//
 		// StringBuilder builder = new StringBuilder(jpql);
 		//
-		// if (!categoria.isEmpty())
-		// builder.append("join fetch p.categorias c where c.nome = :pCategoria and ");
-		// else
-		// builder.append("where ");
-		//
+//		 if (!categoria.isEmpty())
+//		 builder.append("join fetch p.categorias c where c.nome = :pCategoria and ");
+//		 else
+//		 builder.append("where ");
+//		
 		// if (!loja.isEmpty())
 		// builder.append("p.loja.nome = :pLoja and ");
 		// if (!nome.isEmpty())
@@ -87,7 +80,7 @@ public class ProdutoDao {
 
 		if (!nome.isEmpty()) {
 			Path<String> nomeProduto = produtoRoot.<String> get("nome");
-			conjuncao = builder.and(builder.equal(nomeProduto, nome));
+			conjuncao = builder.and(builder.like(nomeProduto, "%" + nome + "%"));
 		}
 
 		if (!categoria.isEmpty()) {
@@ -98,13 +91,17 @@ public class ProdutoDao {
 			builder.equal(categoriaProduto, categoria));
 		}
 
-		if (!loja.isEmpty()) {
-			Path<String> nomeLoja = produtoRoot.<String> get("loja")
-											   .<String> get("nome");
+		if (lojaId != null) {
+			Path<Integer> nomeLoja = produtoRoot.<Loja> get("loja")
+											   .<Integer> get("id");
 			
-			conjuncao = builder.and(conjuncao, builder.equal(nomeLoja, loja));
+			conjuncao = builder.and(conjuncao, builder.equal(nomeLoja, lojaId));
 		}
 
 		return em.createQuery(query.where(conjuncao)).getResultList();
+	}
+
+	public void insere(Produto produto) {
+		em.persist(produto);
 	}
 }

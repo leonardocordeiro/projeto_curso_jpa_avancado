@@ -20,10 +20,10 @@
 			
 			<!-- 
 			<property name="hibernate.multiTenancy" value="SCHEMA" />
-			<property name="hibernate.tenant_identifier_resolver" value="br.com.caelum.SchemaResolver" />
-			<property name="hibernate.multi_tenant_connection_provider" value="br.com.caelum.MultiTenantProvider" />
-			 -->
-			 
+			<property name="hibernate.tenant_identifier_resolver" value="br.com.caelum.TenantResolver" />
+			<property name="hibernate.multi_tenant_connection_provider" value="br.com.caelum.MultiTenantConnectionProviderImpl" />
+ 			-->
+ 			
 			<property name="hibernate.cache.use_query_cache" value="true"/>
 			<property name="hibernate.cache.use_second_level_cache" value="true" />
 			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory" />
