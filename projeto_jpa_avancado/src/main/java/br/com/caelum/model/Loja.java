@@ -12,6 +12,8 @@ public class Loja {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	
 
 	public String getNome() {
 		return nome;

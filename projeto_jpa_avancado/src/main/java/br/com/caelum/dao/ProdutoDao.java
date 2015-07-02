@@ -4,11 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
@@ -38,6 +34,10 @@ public class ProdutoDao {
 
 	public List<Produto> getProdutos(String nome, String categoria, String loja) {
 		
+		TypedQuery<Produto> query = em.createQuery("select p from Produto p join p.categorias ", Produto.class);
+		
+		
+		/*
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Produto> query = builder.createQuery(Produto.class);
 		Root<Produto> from = query.from(Produto.class);
@@ -60,5 +60,6 @@ public class ProdutoDao {
 		}
 		
 		return em.createQuery(query.where(conjuncao)).getResultList();
+		*/
 	}	
 }
