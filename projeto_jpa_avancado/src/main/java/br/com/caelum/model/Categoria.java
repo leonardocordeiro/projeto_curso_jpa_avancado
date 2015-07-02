@@ -5,7 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
+@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Categoria {
 
 	@Id
@@ -15,6 +19,12 @@ public class Categoria {
 
 	public Categoria(String nome) {
 		this.nome = nome;
+	}
+	
+	// Para hibernate
+	@SuppressWarnings("unused")
+	private Categoria() { 
+		
 	}
 
 	public Integer getId() {
