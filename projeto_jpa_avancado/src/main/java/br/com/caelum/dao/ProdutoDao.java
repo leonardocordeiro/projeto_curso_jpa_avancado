@@ -10,6 +10,7 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
@@ -102,6 +103,7 @@ public class ProdutoDao {
 	}
 
 	public void insere(Produto produto) {
+		System.out.println("Produto: " + produto.getNome() + " la: " + produto.getLoja().getNome());
 		em.persist(produto);
 	}
 }

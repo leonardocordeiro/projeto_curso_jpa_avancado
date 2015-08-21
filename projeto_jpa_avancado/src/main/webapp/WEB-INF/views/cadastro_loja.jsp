@@ -31,7 +31,6 @@
 								
 								<input type="text" name="nome" class="form-control">
 								
-								
 							</form>
 						</div>	
 					</div>

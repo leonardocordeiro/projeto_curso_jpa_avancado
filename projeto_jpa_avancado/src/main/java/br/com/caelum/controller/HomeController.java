@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.caelum.dao.CategoriaDao;
 import br.com.caelum.dao.LojaDao;
 import br.com.caelum.dao.ProdutoDao;
-import br.com.caelum.model.Loja;
 import br.com.caelum.model.Produto;
 
 @Controller
@@ -33,17 +32,12 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/")
-	public String home(Model model, @RequestParam(required=false) String tenancy) {
+	public String home(Model model) {
 		return "home";
 	}
 	
 	@RequestMapping("/tenancy")
-	public String home(@RequestParam Integer lojaId) {
-		if(lojaId != null) {
-			Loja loja = lojaDao.getLoja(lojaId);
-			//tenant.setLoja(loja);
-		}
-		
+	public String home() {
 		return "redirect:/";
 	}
 	
@@ -64,7 +58,7 @@ public class HomeController {
 	public String produtos(Model model,
 			@RequestParam String nome, 
 			@RequestParam String categoria,
-			@RequestParam(required=false) Integer lojaId) {
+			@RequestParam Integer lojaId) {
 		
 		List<Produto> produtos = produtoDao.getProdutos(nome, categoria, lojaId);
 		model.addAttribute("produtos", produtos);

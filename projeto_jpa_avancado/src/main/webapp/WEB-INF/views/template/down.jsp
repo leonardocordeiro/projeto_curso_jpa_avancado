@@ -23,7 +23,7 @@
 					</select>
 				</p>
 				<p>
-					<select class="form-control" name="loja">
+					<select class="form-control" name="lojaId">
 						<option selected value="">Loja</option>
 						<c:forEach items="${lojas}" var="loja">
 							<option value="${loja.id}">${loja.nome}</option>

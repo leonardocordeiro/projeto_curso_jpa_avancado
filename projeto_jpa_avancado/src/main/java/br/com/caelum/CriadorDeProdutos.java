@@ -41,11 +41,6 @@ public class CriadorDeProdutos {
 				
 				em.persist(musicalAlegre);
 				
-				Loja papelaria = new Loja();
-				papelaria.setNome("Papelaria de Campo Grande");
-				
-				em.persist(papelaria);
-				
 				Categoria tecnologia = new Categoria("Tecnologia");
 				em.persist(tecnologia);
 				
@@ -112,9 +107,6 @@ public class CriadorDeProdutos {
 				flauta.setLinkDaFoto("http://i.mlcdn.com.br/1500x1500/flauta-doce-germanicayamaha-yrs-23g-204013000.jpg");
 				
 				em.persist(flauta);
-				
-
-				
 				
 			}
 		});		

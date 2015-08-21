@@ -10,43 +10,33 @@
 		<div class="panel-heading">Novo produto</div>
 
 		<div class="panel-body">
-			<fieldset>
-				<legend>Novo produto</legend>
-			</fieldset>
-			
 			<form action="produto" method="post">
 				<div class="form-group">
 					<label for="nome">
 						Nome:
 					</label>
-					<input type="text" class="form-control" >
+					<input type="text" class="form-control" name="nome">
 				</div>
 
 				<div class="form-group">
 					<label for="nome">
 						Link da foto:
 					</label>
-					<input type="text" class="form-control" >
+					<input type="text" class="form-control" name="linkDaFoto">
 				</div>
-				<c:choose>
-					<c:when test="${empty produtoDao.tenancy}">
-						<div class="form-group">
-							<label for="nome">
-								Loja:
-							</label>
-							<select name="loja.nome" class="form-control">
-								<option>Selecione</option>
-								<c:forEach items="${lojas}" var="loja">
-									<option value="${loja.nome}">${loja.nome}</option>
-								</c:forEach>
-							</select>
-						</div>
-					</c:when>
-					<c:when test="${not empty produtoDao.tenancy}">
-						<input type="hidden" name="loja.id" value="${produtoDao.tenancy}">
-					</c:when>
+				
+				<div class="form-group">
+					<label for="nome">
+						Loja:
+					</label>
+					<select name="lojaId" class="form-control">
+						<option>Selecione</option>
+						<c:forEach items="${lojas}" var="loja">
+							<option value="${loja.id}">${loja.nome}</option>
+						</c:forEach>
+					</select>
+				</div>
 						
-				</c:choose>
 				<div class="form-group">
 					<input type="submit" class="btn btn-success" value="Cadastrar">
 				</div>
