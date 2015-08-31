@@ -17,6 +17,7 @@ import br.com.caelum.model.Loja;
 import br.com.caelum.model.Produto;
 
 @Controller
+@RequestMapping("/")
 public class HomeController {
 	
 	@Autowired
@@ -32,44 +33,9 @@ public class HomeController {
 		return produtoDao;
 	}
 	
-	@RequestMapping("/")
+	@RequestMapping
 	public String home(Model model, @RequestParam(required=false) String tenancy) {
 		return "home";
 	}
-	
-	@RequestMapping("/tenancy")
-	public String home(@RequestParam Integer lojaId) {
-		if(lojaId != null) {
-			Loja loja = lojaDao.getLoja(lojaId);
-			//tenant.setLoja(loja);
-		}
 		
-		return "redirect:/";
-	}
-	
-	@RequestMapping("/produto")
-	public String novoProduto() { 
-		return "novo_produto";
-	}
-	
-	@RequestMapping("/produto/{id}")
-	public String produto(@PathVariable Integer id, Model model) {
-		Produto produto = produtoDao.getProduto(id);
-		
-		model.addAttribute("produto", produto);
-		return "saber_mais";
-	}	
-	
-	@RequestMapping(value="/produtos", method=RequestMethod.POST)
-	public String produtos(Model model,
-			@RequestParam String nome, 
-			@RequestParam String categoria,
-			@RequestParam(required=false) Integer lojaId) {
-		
-		List<Produto> produtos = produtoDao.getProdutos(nome, categoria, lojaId);
-		model.addAttribute("produtos", produtos);
-		
-		return "home";
-		
-	}
 }

@@ -19,17 +19,16 @@
 					<label for="nome">
 						Nome:
 					</label>
-					<input type="text" class="form-control" >
+					<input type="text" class="form-control" name="nome">
 				</div>
 
 				<div class="form-group">
 					<label for="nome">
 						Link da foto:
 					</label>
-					<input type="text" class="form-control" >
+					<input type="text" class="form-control" name="linkDaFoto">
 				</div>
-				<c:choose>
-					<c:when test="${empty produtoDao.tenancy}">
+					
 						<div class="form-group">
 							<label for="nome">
 								Loja:
@@ -41,12 +40,6 @@
 								</c:forEach>
 							</select>
 						</div>
-					</c:when>
-					<c:when test="${not empty produtoDao.tenancy}">
-						<input type="hidden" name="loja.id" value="${produtoDao.tenancy}">
-					</c:when>
-						
-				</c:choose>
 				<div class="form-group">
 					<input type="submit" class="btn btn-success" value="Cadastrar">
 				</div>
