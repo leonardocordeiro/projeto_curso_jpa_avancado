@@ -6,10 +6,12 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor;
@@ -74,6 +76,17 @@ public class Configurador extends WebMvcConfigurerAdapter {
 	}
 	
 	@Bean
+	public MessageSource messageSource() { 
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("/WEB-INF/messages");
+		messageSource.setCacheSeconds(1);
+		messageSource.setDefaultEncoding("ISO-8859-1");
+		
+		return messageSource;
+		
+	}
+	
+	@Bean 
 	public ViewResolver getViewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 
@@ -109,7 +122,8 @@ public class Configurador extends WebMvcConfigurerAdapter {
 	@Bean
 	public LocalContainerEntityManagerFactoryBean getEntityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean entityManagerFactory = 
-							new LocalContainerEntityManagerFactoryBean();
+		new LocalContainerEntityManagerFactoryBean();
+		
 		entityManagerFactory.setDataSource(getDataSource());
 		
 		return entityManagerFactory;

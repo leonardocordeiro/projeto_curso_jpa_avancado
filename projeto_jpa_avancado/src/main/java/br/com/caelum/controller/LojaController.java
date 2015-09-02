@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/loja")
 public class LojaController {
 	
-	@RequestMapping("/cadastro")
-	public String cadastro() { 
-		return "cadastro_loja";
+	@RequestMapping("/form")
+	public String form() { 
+		return "loja/form";
 	}
 }

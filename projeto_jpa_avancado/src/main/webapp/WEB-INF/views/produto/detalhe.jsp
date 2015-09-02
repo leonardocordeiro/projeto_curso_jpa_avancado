@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<c:import url="template/top.jsp" />
+<c:import url="../template/top.jsp" />
 <div class="col-sm-8">
 	<div class="panel panel-default">
 		<div class="panel-heading">${produto.loja.nome}</div>
@@ -29,4 +29,4 @@
 		</div>
 	</div>
 </div>
-<c:import url="template/down.jsp" />
+<c:import url="../template/down.jsp" />

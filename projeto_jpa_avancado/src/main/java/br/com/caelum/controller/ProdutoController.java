@@ -1,18 +1,22 @@
 package br.com.caelum.controller;
 
-
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.caelum.dao.LojaDao;
 import br.com.caelum.dao.ProdutoDao;
+import br.com.caelum.model.Loja;
 import br.com.caelum.model.Produto;
 
 @Controller
@@ -22,30 +26,41 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoDao produtoDao;
 	
+	@Autowired
+	private LojaDao lojaDao;
+	
 	@Transactional
-	@RequestMapping(method=RequestMethod.POST)
-	public String produto(Produto produto, Integer lojaId) {
-		System.out.println(produto.getNome());
+	@RequestMapping(method=RequestMethod.POST, name="cadastraProduto")
+	public String salvar(@Valid Produto produto, BindingResult result) {
+		if(result.hasErrors()) {
+			return form(produto);
+		}
+		
+		Integer id = produto.getLoja().getId();
+		Loja loja = lojaDao.getLoja(id);
+		
+		produto.setLoja(loja);
+		
 		produtoDao.insere(produto);
 		
 		return "redirect:/";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public String novoProduto() { 
-		return "novo_produto";
+	@RequestMapping(value="/form", method=RequestMethod.GET)
+	public String form(Produto produto) { 
+		return "produto/form";
 	}
 	
 	@RequestMapping("/{id}")
-	public String produto(@PathVariable Integer id, Model model) {
+	public String detalhe(@PathVariable Integer id, Model model) {
 		Produto produto = produtoDao.getProduto(id);
 		
 		model.addAttribute("produto", produto);
-		return "saber_mais";
+		return "produto/detalhe";
 	}	
 	
-	@RequestMapping(value="/produtos", method=RequestMethod.POST)
-	public String produtos(Model model,
+	@RequestMapping(value="/buscar", method=RequestMethod.POST, name="buscarProdutos")
+	public String buscarPor(Model model,
 			@RequestParam String nome, 
 			@RequestParam String categoria,
 			@RequestParam(required=false) Integer lojaId) {
@@ -56,5 +71,4 @@ public class ProdutoController {
 		return "home";
 		
 	}
-	
 }
