@@ -7,6 +7,8 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.stat.Statistics;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -60,6 +62,11 @@ public class Configurador extends WebMvcConfigurerAdapter {
 		List<Produto> produtos = produtoDao.getProdutos();
 		
 		return produtos;
+	}
+	
+	@Bean
+	public Statistics statistics(EntityManagerFactory emf) { 
+		return emf.unwrap(SessionFactory.class).getStatistics();
 	}
 	
 	@Bean
@@ -137,6 +144,7 @@ public class Configurador extends WebMvcConfigurerAdapter {
 		props.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		
 		props.setProperty("hibernate.cache.use_query_cache", "true");
+		props.setProperty("hibernate.generate_statistics", "true");
 		props.setProperty("hibernate.cache.use_second_level_cache", "true");
 		props.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory");
 		

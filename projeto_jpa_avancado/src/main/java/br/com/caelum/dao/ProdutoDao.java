@@ -11,6 +11,8 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Session;
+import org.hibernate.stat.Statistics;
 import org.springframework.stereotype.Repository;
 
 import br.com.caelum.model.Loja;
@@ -28,7 +30,13 @@ public class ProdutoDao {
 	}
 
 	public Produto getProduto(Integer id) {
+		Session s = em.unwrap(Session.class);
+		Statistics estatisticas = s.getSessionFactory().getStatistics();
+		
+		
 		Produto produto = em.find(Produto.class, id);
+		System.out.println("Hit: " + estatisticas.getSecondLevelCacheHitCount());
+		System.out.println("Miss: " + estatisticas.getSecondLevelCacheMissCount());
 		return produto;
 	}
 
