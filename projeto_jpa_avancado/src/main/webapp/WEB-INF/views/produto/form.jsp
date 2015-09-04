@@ -61,17 +61,20 @@
 					<textarea name="descricao" class="form-control">${produto.descricao}</textarea>
 				</div>
 				<form:errors path="produto.descricao" />
-				<c:if test="${produto.id != null }">
+				
+				<c:if test="${produto.id != null}">
 					<div class="form-group">
 						<input type="submit" class="btn btn-success" value="Atualizar">
 						<input type="hidden" name="id" value="${produto.id}">
 					</div>
 				</c:if>
-				<c:if test="${produto.id == null }">
+				
+				<c:if test="${produto.id == null}">
 					<div class="form-group">
 						<input type="submit" class="btn btn-success" value="Cadastrar">
 					</div>
 				</c:if>
+				
 				<!-- Tem que enviar a versao no request -->
 				<input type="hidden" name="version" value="${produto.version}">
  			</form>

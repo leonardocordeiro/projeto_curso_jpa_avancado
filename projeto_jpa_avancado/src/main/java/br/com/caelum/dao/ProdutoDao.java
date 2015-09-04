@@ -10,9 +10,7 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import br.com.caelum.model.Loja;
@@ -25,9 +23,7 @@ public class ProdutoDao {
 	private EntityManager em;
 	
 	public List<Produto> getProdutos() {
-		Session session = (Session) em.getDelegate();
-		
-		return session.createQuery("from Produto p").list();
+		return em.createQuery("from Produto", Produto.class).getResultList();
 		
 	}
 
