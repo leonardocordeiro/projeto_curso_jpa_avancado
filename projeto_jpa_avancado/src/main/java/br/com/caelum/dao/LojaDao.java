@@ -24,10 +24,7 @@ public class LojaDao {
 	}
 
 	public Loja getLoja(Integer lojaId) {
-		TypedQuery<Loja> query = em.createQuery("from Loja loja where loja.id=:id", Loja.class);
-		query.setParameter("id", lojaId);
-
-		return query.getSingleResult();
+		return em.find(Loja.class, lojaId);
 	}
 
 }

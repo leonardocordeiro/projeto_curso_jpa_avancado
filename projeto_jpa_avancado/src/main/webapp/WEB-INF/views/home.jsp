@@ -20,6 +20,8 @@
 					<p>
 						<a class="btn btn-default"
 							href="<c:url value="/produto/${produto.id}" />" />Saiba mais </a>
+						<a class="btn btn-default"
+							href="<c:url value="/produto/${produto.id}/form" />" />Editar </a>
 					</p>
 				</div>
 			</c:forEach>

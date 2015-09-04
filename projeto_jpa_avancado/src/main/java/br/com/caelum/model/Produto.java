@@ -11,26 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.FilterDefs;
-import org.hibernate.annotations.Filters;
-
-@Filters({
-	@Filter(name="Casa do Código", condition="loja_id=1"),
-	@Filter(name="Musical Alegre", condition="loja_id=2"),
-	@Filter(name="Papelaria de Campo Grande", condition="loja_id=3")
-})
-
-@FilterDefs({
-	@FilterDef(name="Casa do Código"),
-	@FilterDef(name="Musical Alegre"),
-	@FilterDef(name="Papelaria de Campo Grande")
-	
-})
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -39,14 +26,30 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NotEmpty
 	private String nome;
+	@NotEmpty
 	private String linkDaFoto;
 	
+	@Version
+	private Integer version;
+	
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	@NotEmpty
 	@Column(columnDefinition="TEXT")
 	private String descricao;
 	
+	@Min(20)
 	private double preco;
 	
+	@Valid
 	@ManyToOne
 	private Loja loja;
 	
@@ -85,6 +88,10 @@ public class Produto {
 
 	public void setLinkDaFoto(String linkDaFoto) {
 		this.linkDaFoto = linkDaFoto;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getId() {

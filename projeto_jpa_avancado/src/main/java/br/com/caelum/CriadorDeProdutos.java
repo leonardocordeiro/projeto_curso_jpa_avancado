@@ -51,6 +51,7 @@ public class CriadorDeProdutos {
 				proTools.setNome("ProTools");
 				proTools.setLoja(musicalAlegre);
 				proTools.setPreco(400.0);
+				proTools.setDescricao("Programa ótimo");
 				proTools.adicionarCategorias(tecnologia, musica);
 				proTools.setLinkDaFoto("http://apps.avid.com/campaigns/2013/pro-tools-11-demo/assets/images/ProTools11Demo_Video_780x453.png");
 				

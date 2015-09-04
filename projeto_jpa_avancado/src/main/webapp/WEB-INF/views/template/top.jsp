@@ -14,8 +14,7 @@
 		<nav class="navbar navbar-inverse" role="navigation">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="<c:url value='/' />">Home</a>
-				<a class="navbar-brand" href="<c:url value='/produto' />">Novo produto</a>
+				<a class="navbar-brand" href="<c:url value='/produto/form' />">Novo produto</a>
 			</div>
-			
 		</nav>
 			

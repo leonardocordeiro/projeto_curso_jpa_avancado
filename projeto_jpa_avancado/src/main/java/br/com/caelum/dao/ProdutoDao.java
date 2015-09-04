@@ -38,7 +38,8 @@ public class ProdutoDao {
 
 	public List<Produto> getProdutos(String nome, String categoria, Integer lojaId) {
 		// Começar com JPQL
-		
+		/*
+
 		// String jpql = "select p from Produto p ";
 		//
 		// StringBuilder builder = new StringBuilder(jpql);
@@ -73,6 +74,7 @@ public class ProdutoDao {
 		 * Categoria.nome = "Música" and Produto_Id = Produto.id and
 		 * Categoria.id = categorias_id;
 		 */
+
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Produto> query = builder.createQuery(Produto.class);
 		Root<Produto> produtoRoot = query.from(Produto.class);
@@ -103,7 +105,10 @@ public class ProdutoDao {
 	}
 
 	public void insere(Produto produto) {
-		System.out.println("Produto: " + produto.getNome() + " la: " + produto.getLoja().getNome());
-		em.persist(produto);
+		System.out.println("ID: " + produto.getId());
+		System.out.println("ID: " + produto.getLoja().getId());
+		if(produto.getId() == null) em.persist(produto);
+		else produto = em.merge(produto);
 	}
+
 }
