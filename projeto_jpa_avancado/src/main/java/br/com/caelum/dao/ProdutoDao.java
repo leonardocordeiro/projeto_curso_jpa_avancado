@@ -1,5 +1,6 @@
 package br.com.caelum.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,8 +12,6 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.Session;
-import org.hibernate.stat.Statistics;
 import org.springframework.stereotype.Repository;
 
 import br.com.caelum.model.Loja;
@@ -26,17 +25,10 @@ public class ProdutoDao {
 	
 	public List<Produto> getProdutos() {
 		return em.createQuery("from Produto", Produto.class).getResultList();
-		
 	}
 
 	public Produto getProduto(Integer id) {
-		Session s = em.unwrap(Session.class);
-		Statistics estatisticas = s.getSessionFactory().getStatistics();
-		
-		
 		Produto produto = em.find(Produto.class, id);
-		System.out.println("Hit: " + estatisticas.getSecondLevelCacheHitCount());
-		System.out.println("Miss: " + estatisticas.getSecondLevelCacheMissCount());
 		return produto;
 	}
 
@@ -92,7 +84,7 @@ public class ProdutoDao {
 
 		if (!categoria.isEmpty()) {
 			Join<Produto, List<String>> join = produtoRoot.join("categorias");
-			Path<String> categoriaProduto = join.get("nome");
+			Path<String> categoriaProduto = join.get("id");
 
 			conjuncao = builder.and(conjuncao,
 			builder.equal(categoriaProduto, categoria));
@@ -109,10 +101,8 @@ public class ProdutoDao {
 	}
 
 	public void insere(Produto produto) {
-		System.out.println("ID: " + produto.getId());
-		System.out.println("ID: " + produto.getLoja().getId());
 		if(produto.getId() == null) em.persist(produto);
-		else produto = em.merge(produto);
+		else em.merge(produto);
 	}
 
 }

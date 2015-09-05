@@ -47,15 +47,15 @@ public class CriadorDeProdutos {
 				Categoria musica = new Categoria("Música");
 				em.persist(musica);
 				
-				Produto proTools = new Produto();
-				proTools.setNome("ProTools");
-				proTools.setLoja(musicalAlegre);
-				proTools.setPreco(400.0);
-				proTools.setDescricao("Programa ótimo");
-				proTools.adicionarCategorias(tecnologia, musica);
-				proTools.setLinkDaFoto("http://apps.avid.com/campaigns/2013/pro-tools-11-demo/assets/images/ProTools11Demo_Video_780x453.png");
+				Produto cursoDeViolao = new Produto();
+				cursoDeViolao.setNome("Curso de Violão");
+				cursoDeViolao.setLoja(musicalAlegre);
+				cursoDeViolao.setPreco(49.0);
+				cursoDeViolao.setDescricao("Estude com os melhores professores e aprenda no seu ritmo, sem sair de casa.");
+				cursoDeViolao.adicionarCategorias(tecnologia, musica);
+				cursoDeViolao.setLinkDaFoto("https://pbs.twimg.com/profile_images/378800000825434860/12136ee913ed4f44860914d44650144e.png");
 				
-				em.persist(proTools);
+				em.persist(cursoDeViolao);
 				
 				Produto livroDeArquitetura = new Produto();
 				livroDeArquitetura.setNome("Introduçao a Arquitetura Java e Design de projetos com Java");

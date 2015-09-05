@@ -22,13 +22,17 @@ public class Categoria {
 	}
 	
 	// Para hibernate
-	@SuppressWarnings("unused")
-	private Categoria() { 
+	@Deprecated
+	public Categoria() { 
 		
 	}
 
 	public Integer getId() {
 		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNome() {

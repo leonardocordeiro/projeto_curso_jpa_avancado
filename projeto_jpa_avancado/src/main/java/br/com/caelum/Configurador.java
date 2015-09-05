@@ -13,8 +13,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor;
@@ -106,8 +108,35 @@ public class Configurador extends WebMvcConfigurerAdapter {
 		return viewResolver;
 	}
 
+	@Profile("producao")
 	@Bean(destroyMethod="close")
-	public DataSource getDataSource() {
+	public DataSource getDataSourceProducao() {
+		ComboPooledDataSource ds = new ComboPooledDataSource();
+		try {
+			ds.setDriverClass("com.mysql.jdbc.Driver");
+			ds.setMinPoolSize(3);
+			ds.setMaxIdleTime(30);
+			ds.setMaxPoolSize(5);
+			ds.setAcquireIncrement(1);
+
+		} catch (PropertyVetoException e) {
+			throw new RuntimeException(e);
+		}
+
+		ds.setUser("adminrLgekjs");
+		ds.setPassword("rRFnFFcg6VMX");
+		
+		String local = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
+		String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
+		
+		ds.setJdbcUrl(String.format("jdbc:mysql://%s:%s/projetojpa", local, port));
+
+		return ds;
+	}
+	
+	@Profile("desenvolvimento")
+	@Bean(destroyMethod="close")
+	public DataSource getDataSourceDesenvolvimento() {
 		ComboPooledDataSource ds = new ComboPooledDataSource();
 		try {
 			ds.setDriverClass("com.mysql.jdbc.Driver");
@@ -144,12 +173,18 @@ public class Configurador extends WebMvcConfigurerAdapter {
 		props.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		
 		props.setProperty("hibernate.cache.use_query_cache", "true");
-		props.setProperty("hibernate.generate_statistics", "true");
+		props.setProperty("hibernate.generate_statistics", "false");
 		props.setProperty("hibernate.cache.use_second_level_cache", "true");
 		props.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory");
 		
 		entityManagerFactory.setJpaProperties(props);
 		return entityManagerFactory;
+	}
+	
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		System.out.println("Adicionando...");
+		registry.addConverter(new MeuConverter());
 	}
 
 	@Override

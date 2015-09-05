@@ -56,6 +56,31 @@
 				</div>
 				<div class="form-group">
 					<label for="descricao">
+						Categoria:
+					</label><br>
+					<c:forEach items="${categorias}" var="categoria" varStatus="status">
+						<c:set var="contains" value="false"/>
+						
+						<c:forEach items="${produto.categorias}" var="categoriaProduto" varStatus="statusProduto">
+							<c:if test="${categoriaProduto.id == categoria.id}">
+								<c:set var="contains" value="true"/>		
+							</c:if>
+						</c:forEach>	
+						<c:choose>	
+							<c:when test="${contains}">
+					 			<input type="checkbox" name="categorias" value="${categorias[status.index].id}" checked> 
+									${categoria.nome}<br>
+								<c:set var="contains" value="false"/>		
+							</c:when>
+							<c:when test="${not contains }">
+								<input type="checkbox" name="categorias" value="${categorias[status.index].id}"> 
+									${categoria.nome}<br>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+				</div>
+				<div class="form-group">
+					<label for="descricao">
 						Descrição:
 					</label>
 					<textarea name="descricao" class="form-control">${produto.descricao}</textarea>

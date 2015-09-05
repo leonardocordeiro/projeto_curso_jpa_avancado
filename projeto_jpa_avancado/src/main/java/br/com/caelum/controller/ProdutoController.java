@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.caelum.dao.LojaDao;
 import br.com.caelum.dao.ProdutoDao;
-import br.com.caelum.model.Loja;
+import br.com.caelum.model.Categoria;
 import br.com.caelum.model.Produto;
 
 @Controller
@@ -31,15 +32,14 @@ public class ProdutoController {
 	
 	@Transactional
 	@RequestMapping(method=RequestMethod.POST, name="cadastraProduto")
-	public String salvar(@Valid Produto produto, BindingResult result) {
+	public String salvar(@ModelAttribute @Valid Produto produto, BindingResult result) {
 		if(result.hasErrors()) {
 			return form(produto);
 		}
 		
-		Integer id = produto.getLoja().getId();
-		
-		Loja loja = lojaDao.getLoja(id);
-		produto.setLoja(loja);
+		for(Categoria cat : produto.getCategorias()) { 
+			System.out.println("Cat: " + cat.getId());
+		}
 		
 		produtoDao.insere(produto);
 		

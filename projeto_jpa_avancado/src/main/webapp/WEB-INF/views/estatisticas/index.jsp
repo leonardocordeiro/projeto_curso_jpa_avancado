@@ -11,18 +11,25 @@
 		<div class="panel-body">
 			<div class="container">
 				<div class="col-sm-8">
-					<a href="<c:url value="/estatisticas/invalidar-cache"/>">Invalidar cache</a>
+					<a href="<c:url value="/estatisticas/limpar"/>">Limpar</a>
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>Hit</th>
-								<th>Miss</th>
+								<th></th>
+								<th>Abertas</th>
+								<th>Fechadas</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>${hit}</td>
-								<td>${miss}</td>
+								<td>Transações</td>
+								<td>${transacoesAbertas}</td>
+								<td>${transacoesFechadas}</td>
+							</tr>
+							<tr>
+								<td>Conexões</td>
+								<td>${conexoesAbertas}</td>
+								<td>${conexoesFechadas}</td>
 							</tr>
 						</tbody>
 					</table>

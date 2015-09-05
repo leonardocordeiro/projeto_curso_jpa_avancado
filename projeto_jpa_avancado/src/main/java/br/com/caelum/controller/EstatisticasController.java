@@ -21,23 +21,25 @@ public class EstatisticasController {
 
 	@RequestMapping
 	public String index(Model model) {
-		long hit = statistics.getSecondLevelCacheHitCount();
-		long miss = statistics.getSecondLevelCacheMissCount();
+		long transacoesAbertas = statistics.getTransactionCount();
+		long transacoesFechadas = statistics.getSuccessfulTransactionCount();
 		
-		model.addAttribute("hit", hit);
-		model.addAttribute("miss", miss);
+		long conexoesAbertas = statistics.getConnectCount();
+		long conexoesFechadas = statistics.getFlushCount();
+		
+		model.addAttribute("transacoesAbertas", transacoesAbertas);
+		model.addAttribute("transacoesFechadas", transacoesFechadas);
+		
+		model.addAttribute("conexoesAbertas", conexoesAbertas);
+		model.addAttribute("conexoesFechadas", conexoesFechadas);
 		
 		return "estatisticas/index";
 	}
 	
-	@RequestMapping("/invalidar-cache")
-	public String invalidar(Model model) {
-		em.getEntityManagerFactory().getCache().evictAll();
+	@RequestMapping("/limpar")
+	public String invalidar() {
 		statistics.clear();
 		
-		return index(model);
-		
+		return "redirect:/estatisticas"; 
 	}
-	
-	
 }
