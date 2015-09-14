@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.caelum.dao.LojaDao;
 import br.com.caelum.dao.ProdutoDao;
-import br.com.caelum.model.Categoria;
 import br.com.caelum.model.Produto;
 
 @Controller
@@ -35,10 +34,6 @@ public class ProdutoController {
 	public String salvar(@ModelAttribute @Valid Produto produto, BindingResult result) {
 		if(result.hasErrors()) {
 			return form(produto);
-		}
-		
-		for(Categoria cat : produto.getCategorias()) { 
-			System.out.println("Cat: " + cat.getId());
 		}
 		
 		produtoDao.insere(produto);
