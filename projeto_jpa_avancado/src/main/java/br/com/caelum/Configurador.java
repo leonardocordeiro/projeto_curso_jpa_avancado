@@ -180,12 +180,6 @@ public class Configurador extends WebMvcConfigurerAdapter {
 		entityManagerFactory.setJpaProperties(props);
 		return entityManagerFactory;
 	}
-	
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-		System.out.println("Adicionando...");
-		registry.addConverter(new MeuConverter());
-	}
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
