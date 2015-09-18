@@ -92,10 +92,11 @@ public class ProdutoDao {
 		}
 
 		if (lojaId != null) {
-			Path<Integer> nomeLoja = produtoRoot.<Loja> get("loja")
-											   .<Integer> get("id");
 			
-			conjuncao = builder.and(conjuncao, builder.equal(nomeLoja, lojaId));
+			Path<Loja> loja = produtoRoot.<Loja> get("loja");
+			Path<Integer> id = loja.<Integer> get("id");
+
+			conjuncao = builder.and(conjuncao, builder.equal(id, lojaId));
 		}
 
 		return em.createQuery(query.where(conjuncao)).getResultList();
