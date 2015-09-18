@@ -31,7 +31,7 @@ public class ProdutoDao {
 		return produto;
 	}
 
-	public List<Produto> getProdutos(String nome, String categoria, Integer lojaId) {
+	public List<Produto> getProdutos(String nome, Integer categoriaId, Integer lojaId) {
 		// Começar com JPQL
 		/*
 
@@ -78,15 +78,17 @@ public class ProdutoDao {
 
 		if (!nome.isEmpty()) {
 			Path<String> nomeProduto = produtoRoot.<String> get("nome");
-			conjuncao = builder.and(builder.like(nomeProduto, "%" + nome + "%"));
+			Predicate nomeIgual = builder.like(nomeProduto, "%" + nome + "%");
+			conjuncao = builder.and(nomeIgual);
+			
 		}
 
-		if (!categoria.isEmpty()) {
+		if (categoriaId != null) {
 			Join<Produto, List<String>> join = produtoRoot.join("categorias");
 			Path<String> categoriaProduto = join.get("id");
 
 			conjuncao = builder.and(conjuncao,
-			builder.equal(categoriaProduto, categoria));
+			builder.equal(categoriaProduto, categoriaId));
 		}
 
 		if (lojaId != null) {
