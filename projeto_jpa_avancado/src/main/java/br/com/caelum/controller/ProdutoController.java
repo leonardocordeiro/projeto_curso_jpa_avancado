@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.caelum.dao.LojaDao;
 import br.com.caelum.dao.ProdutoDao;
+import br.com.caelum.model.Categoria;
 import br.com.caelum.model.Produto;
 
 @Controller
