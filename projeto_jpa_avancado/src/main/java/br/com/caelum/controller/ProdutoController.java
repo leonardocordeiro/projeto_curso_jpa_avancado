@@ -66,10 +66,10 @@ public class ProdutoController {
 	@RequestMapping(value="/buscar", method=RequestMethod.POST, name="buscarProdutos")
 	public String buscarPor(Model model,
 			@RequestParam String nome, 
-			@RequestParam String categoria,
+			@RequestParam Integer categoriaId,
 			@RequestParam(required=false) Integer lojaId) {
 		
-		List<Produto> produtos = produtoDao.getProdutos(nome, categoria, lojaId);
+		List<Produto> produtos = produtoDao.getProdutos(nome, categoriaId, lojaId);
 		model.addAttribute("produtos", produtos);
 		
 		return "home";

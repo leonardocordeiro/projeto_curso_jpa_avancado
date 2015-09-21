@@ -16,7 +16,7 @@
 						placeholder="Nome">
 				</p>
 				<p>
-					<select class="form-control" name="categoria">
+					<select class="form-control" name="categoriaId">
 						<option selected value="">Categoria</option>
 						<c:forEach items="${categorias}" var="categoria">
 							<option value="${categoria.id}">${categoria.nome}</option>
