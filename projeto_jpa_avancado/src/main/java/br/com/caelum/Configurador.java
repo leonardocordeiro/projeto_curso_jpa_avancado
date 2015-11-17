@@ -38,27 +38,12 @@ import br.com.caelum.model.Produto;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-@EnableWebMvc
 @Configuration
+@EnableWebMvc
 @ComponentScan("br.com.caelum")
 @EnableTransactionManagement
 public class Configurador extends WebMvcConfigurerAdapter {
 	
-	@Bean
-	public ProdutoDao produtoDao() { 
-		return new ProdutoDao();
-	}
-	
-	@Bean
-	public LojaDao lojaDao() { 
-		return new LojaDao();
-	}
-
-	@Bean
-	public CategoriaDao categoriaDao() { 
-		return new CategoriaDao();
-	}
-
 	@Bean
 	@Scope("request")
 	public List<Produto> produtos(ProdutoDao produtoDao) {
@@ -89,6 +74,7 @@ public class Configurador extends WebMvcConfigurerAdapter {
 	@Bean
 	public MessageSource messageSource() { 
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		
 		messageSource.setBasename("/WEB-INF/messages");
 		messageSource.setCacheSeconds(1);
 		messageSource.setDefaultEncoding("ISO-8859-1");
@@ -197,10 +183,12 @@ public class Configurador extends WebMvcConfigurerAdapter {
 		registry.addConverter(new Converter<String, Categoria>() {
 
 			@Override
-			public Categoria convert(String arg0) {
-				Categoria cat = new Categoria();
-				cat.setId(Integer.valueOf(arg0));
-				return cat;
+			public Categoria convert(String categoriaId) {
+				System.out.println("Usando...");
+				Categoria categoria = new Categoria();
+				categoria.setId(Integer.valueOf(categoriaId));
+				
+				return categoria;
 			}
 			
 		});

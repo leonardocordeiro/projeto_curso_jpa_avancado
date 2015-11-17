@@ -9,12 +9,12 @@ public class Inicializador extends AbstractAnnotationConfigDispatcherServletInit
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return null;
+		return new Class[] { Configurador.class };
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] { Configurador.class };
+		return null;
 	}
 
 	@Override

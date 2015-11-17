@@ -34,14 +34,6 @@ public class Produto {
 	@Version
 	private Integer version;
 	
-	public Integer getVersion() {
-		return version;
-	}
-
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
-
 	@NotEmpty
 	@Column(columnDefinition="TEXT")
 	private String descricao;
@@ -55,6 +47,14 @@ public class Produto {
 	
 	@ManyToMany
 	private List<Categoria> categorias = new ArrayList<>();
+	
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
 	
 	public String getDescricao() {
 		return descricao;

@@ -21,8 +21,6 @@ public class Categoria {
 		this.nome = nome;
 	}
 	
-	// Para hibernate
-	@Deprecated
 	public Categoria() { 
 		
 	}

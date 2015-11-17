@@ -4,16 +4,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.caelum.model.Loja;
 import br.com.caelum.model.Produto;
 
 @Repository
@@ -33,73 +27,69 @@ public class ProdutoDao {
 
 	public List<Produto> getProdutos(String nome, Integer categoriaId, Integer lojaId) {
 		// Começar com JPQL
-		/*
 
-		// String jpql = "select p from Produto p ";
-		//
-		// StringBuilder builder = new StringBuilder(jpql);
-		//
-//		 if (!categoria.isEmpty())
-//		 builder.append("join fetch p.categorias c where c.nome = :pCategoria and ");
-//		 else
-//		 builder.append("where ");
-//		
-		// if (!loja.isEmpty())
-		// builder.append("p.loja.nome = :pLoja and ");
-		// if (!nome.isEmpty())
-		// builder.append("p.nome like :pNome and ");
-		//
-		// builder.append("1=1");
-		// jpql = builder.toString();
-		//
-		// TypedQuery<Produto> query = em.createQuery(jpql, Produto.class);
-		//
-		// if (!categoria.isEmpty())
-		// query.setParameter("pCategoria", categoria);
-		// if (!loja.isEmpty())
-		// query.setParameter("pLoja", loja);
-		// if (!nome.isEmpty())
-		// query.setParameter("pNome", nome);
-		//
-		// List<Produto> resultList = query.getResultList();
-		//
-		// return resultList;
+		 String jpql = "select p from Produto p ";
+		
+		
+		 if (categoriaId != null)
+		 jpql += "join fetch p.categorias c where c.id = :pCategoria and ";
+		 else
+		 jpql += "where ";
+		
+		 if (lojaId != null)
+		 jpql += "p.loja.id = :pLoja and ";
+		 if (!nome.isEmpty())
+		 jpql += "p.nome like :pNome and ";
+		
+		 jpql += "1=1";
+		
+		 TypedQuery<Produto> query = em.createQuery(jpql, Produto.class);
+		
+		 if (categoriaId != null)
+		 query.setParameter("pCategoria", categoriaId);
+		 if (lojaId != null)
+		 query.setParameter("pLoja", lojaId);
+		 if (!nome.isEmpty())
+		 query.setParameter("pNome", nome);
+		
+		 List<Produto> resultList = query.getResultList();
+		
+		 return resultList;
 		/*
 		 * select Produto.nome from Produto, Categoria, Produto_Categoria where
 		 * Categoria.nome = "Música" and Produto_Id = Produto.id and
 		 * Categoria.id = categorias_id;
 		 */
-
-		CriteriaBuilder builder = em.getCriteriaBuilder();
-		CriteriaQuery<Produto> query = builder.createQuery(Produto.class);
-		Root<Produto> produtoRoot = query.from(Produto.class);
-
-		Predicate conjuncao = builder.conjunction();
-
-		if (!nome.isEmpty()) {
-			Path<String> nomeProduto = produtoRoot.<String> get("nome");
-			Predicate nomeIgual = builder.like(nomeProduto, "%" + nome + "%");
-			conjuncao = builder.and(nomeIgual);
-			
-		}
-
-		if (categoriaId != null) {
-			Join<Produto, List<String>> join = produtoRoot.join("categorias");
-			Path<String> categoriaProduto = join.get("id");
-
-			conjuncao = builder.and(conjuncao,
-			builder.equal(categoriaProduto, categoriaId));
-		}
-
-		if (lojaId != null) {
-			
-			Path<Loja> loja = produtoRoot.<Loja> get("loja");
-			Path<Integer> id = loja.<Integer> get("id");
-
-			conjuncao = builder.and(conjuncao, builder.equal(id, lojaId));
-		}
-
-		return em.createQuery(query.where(conjuncao)).getResultList();
+//
+//		CriteriaBuilder builder = em.getCriteriaBuilder();
+//		CriteriaQuery<Produto> query = builder.createQuery(Produto.class);
+//		Root<Produto> produtoRoot = query.from(Produto.class);
+//
+//		Predicate conjuncao = builder.conjunction();
+//
+//		if (!nome.isEmpty()) {
+//			Path<String> nomeProduto = produtoRoot.<String> get("nome");
+//			Predicate nomeIgual = builder.like(nomeProduto, "%" + nome + "%");
+//			conjuncao = builder.and(nomeIgual);
+//			
+//		}
+//
+//		if (categoriaId != null) {
+//			Join<Produto, List<Categoria>> join = produtoRoot.join("categorias");
+//			Path<Integer> categoriaProduto = join.get("id");
+//
+//			conjuncao = builder.and(conjuncao,
+//			builder.equal(categoriaProduto, categoriaId));
+//		}
+//
+//		if (lojaId != null) {
+//			Path<Loja> loja = produtoRoot.<Loja> get("loja");
+//			Path<Integer> id = loja.<Integer> get("id");
+//
+//			conjuncao = builder.and(conjuncao, builder.equal(id, lojaId));
+//		}
+//
+//		return em.createQuery(query.where(conjuncao)).getResultList();
 	}
 
 	public void insere(Produto produto) {
