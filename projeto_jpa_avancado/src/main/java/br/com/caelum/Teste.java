@@ -1,19 +1,14 @@
 package br.com.caelum;
 
+import java.beans.PropertyVetoException;
 import java.sql.SQLException;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class Teste {
-	public static void main(String[] args) throws SQLException {
-		ApplicationContext ctx = new AnnotationConfigApplicationContext(JpaConfigurator.class);
+	public static void main(String[] args) throws SQLException, PropertyVetoException {
+		ComboPooledDataSource dataSource = new JpaConfigurator().getDataSource();
 
-		ComboPooledDataSource dataSource = ctx.getBean(ComboPooledDataSource.class);
-		
 		for(int i = 0; i < 10; i++) {
 			dataSource.getConnection();
 			
@@ -24,8 +19,6 @@ public class Teste {
 			System.out.println("");
 		}
 		
-		ConfigurableApplicationContext context = (ConfigurableApplicationContext) ctx;
-		context.close();
 		
 	}
 }
