@@ -22,6 +22,11 @@ public class Inicializador extends AbstractAnnotationConfigDispatcherServletInit
 		return new String[] { "/" };
 	}
 	
+//	@Override
+//	protected Filter[] getServletFilters() {
+//		return new Filter[] { new OpenEntityManagerInViewFilter() };
+//	}
+	
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);

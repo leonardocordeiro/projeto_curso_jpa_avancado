@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.caelum.dao.LojaDao;
 import br.com.caelum.dao.ProdutoDao;
@@ -31,7 +32,8 @@ public class ProdutoController {
 	
 	@Transactional
 	@RequestMapping(method=RequestMethod.POST, name="cadastraProduto")
-	public String salvar(@ModelAttribute @Valid Produto produto, BindingResult result) {
+	public String salvar(@ModelAttribute @Valid Produto produto, BindingResult result, RedirectAttributes atts) {
+		
 		if(result.hasErrors()) {
 			return form(produto);
 		}
