@@ -18,7 +18,6 @@ public class CategoriaDao {
 
 	public List<Categoria> getCategorias() {
 		TypedQuery<Categoria> query = em.createQuery("from Categoria", Categoria.class);
-		query.setHint("org.hibernate.cacheable", "true");
 
 		return query.getResultList();
 	}

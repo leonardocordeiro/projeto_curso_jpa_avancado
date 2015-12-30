@@ -46,6 +46,7 @@ public class Produto {
 	private Loja loja;
 	
 	@ManyToMany
+	@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	private List<Categoria> categorias = new ArrayList<>();
 	
 	public Integer getVersion() {
