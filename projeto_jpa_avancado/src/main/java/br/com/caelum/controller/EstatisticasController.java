@@ -21,18 +21,6 @@ public class EstatisticasController {
 
 	@RequestMapping
 	public String index(Model model) {
-		long transacoesAbertas = statistics.getTransactionCount();
-		long transacoesFechadas = statistics.getSuccessfulTransactionCount();
-		
-		long conexoesAbertas = statistics.getConnectCount();
-		long conexoesFechadas = statistics.getFlushCount();
-		
-		model.addAttribute("transacoesAbertas", transacoesAbertas);
-		model.addAttribute("transacoesFechadas", transacoesFechadas);
-		
-		model.addAttribute("conexoesAbertas", conexoesAbertas);
-		model.addAttribute("conexoesFechadas", conexoesFechadas);
-		
 		return "estatisticas/index";
 	}
 	

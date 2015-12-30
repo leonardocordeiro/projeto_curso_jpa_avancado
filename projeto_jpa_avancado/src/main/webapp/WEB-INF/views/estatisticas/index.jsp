@@ -16,20 +16,15 @@
 						<thead>
 							<tr>
 								<th></th>
-								<th>Abertas</th>
-								<th>Fechadas</th>
+								<th>Hit</th>
+								<th>Miss</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>Transações</td>
-								<td>${transacoesAbertas}</td>
-								<td>${transacoesFechadas}</td>
-							</tr>
-							<tr>
-								<td>Conexões</td>
-								<td>${conexoesAbertas}</td>
-								<td>${conexoesFechadas}</td>
+								<td>Cache</td>
+								<td>${statistics.queryCacheHitCount}</td>
+								<td>${statistics.queryCacheMissCount}</td>
 							</tr>
 						</tbody>
 					</table>
