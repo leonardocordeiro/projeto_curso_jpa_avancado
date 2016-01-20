@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -22,7 +23,7 @@ public class ProdutoDao {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	public List<Produto> getProdutos() {
 		return em.createQuery("from Produto", Produto.class).getResultList();
 	}
@@ -32,36 +33,37 @@ public class ProdutoDao {
 		return produto;
 	}
 
-	public List<Produto> getProdutos(String nome, Integer categoriaId, Integer lojaId) {
+	public List<Produto> getProdutos(String nome, Integer categoriaId,
+			Integer lojaId) {
 		// Começar com JPQL
 
-//		 String jpql = "select p from Produto p ";
-//		
-//		
-//		 if (categoriaId != null)
-//		 jpql += "join fetch p.categorias c where c.id = :pCategoria and ";
-//		 else
-//		 jpql += "where ";
-//		
-//		 if (lojaId != null)
-//		 jpql += "p.loja.id = :pLoja and ";
-//		 if (!nome.isEmpty())
-//		 jpql += "p.nome like :pNome and ";
-//		
-//		 jpql += "1=1";
-//		
-//		 TypedQuery<Produto> query = em.createQuery(jpql, Produto.class);
-//		
-//		 if (categoriaId != null)
-//		 query.setParameter("pCategoria", categoriaId);
-//		 if (lojaId != null)
-//		 query.setParameter("pLoja", lojaId);
-//		 if (!nome.isEmpty())
-//		 query.setParameter("pNome", nome);
-//		
-//		 List<Produto> resultList = query.getResultList();
-//		
-//		 return resultList;
+		// String jpql = "select p from Produto p ";
+		//
+		//
+		// if (categoriaId != null)
+		// jpql += "join fetch p.categorias c where c.id = :pCategoria and ";
+		// else
+		// jpql += "where ";
+		//
+		// if (lojaId != null)
+		// jpql += "p.loja.id = :pLoja and ";
+		// if (!nome.isEmpty())
+		// jpql += "p.nome like :pNome and ";
+		//
+		// jpql += "1=1";
+		//
+		// TypedQuery<Produto> query = em.createQuery(jpql, Produto.class);
+		//
+		// if (categoriaId != null)
+		// query.setParameter("pCategoria", categoriaId);
+		// if (lojaId != null)
+		// query.setParameter("pLoja", lojaId);
+		// if (!nome.isEmpty())
+		// query.setParameter("pNome", nome);
+		//
+		// List<Produto> resultList = query.getResultList();
+		//
+		// return resultList;
 		/*
 		 * select Produto.nome from Produto, Categoria, Produto_Categoria where
 		 * Categoria.nome = "Música" and Produto_Id = Produto.id and
@@ -78,15 +80,16 @@ public class ProdutoDao {
 			Path<String> nomeProduto = produtoRoot.<String> get("nome");
 			Predicate nomeIgual = builder.like(nomeProduto, "%" + nome + "%");
 			conjuncao = builder.and(nomeIgual);
-			
+
 		}
 
 		if (categoriaId != null) {
-			Join<Produto, List<Categoria>> join = produtoRoot.join("categorias");
+			Join<Produto, List<Categoria>> join = produtoRoot
+					.join("categorias");
 			Path<Integer> categoriaProduto = join.get("id");
 
 			conjuncao = builder.and(conjuncao,
-			builder.equal(categoriaProduto, categoriaId));
+					builder.equal(categoriaProduto, categoriaId));
 		}
 
 		if (lojaId != null) {
@@ -96,12 +99,17 @@ public class ProdutoDao {
 			conjuncao = builder.and(conjuncao, builder.equal(id, lojaId));
 		}
 
-		return em.createQuery(query.where(conjuncao)).getResultList();
+		TypedQuery<Produto> typedQuery = em.createQuery(query.where(conjuncao));
+		typedQuery.setHint("org.hibernate.cacheable", "true");
+		
+		return typedQuery.getResultList();
 	}
 
 	public void insere(Produto produto) {
-		if(produto.getId() == null) em.persist(produto);
-		else em.merge(produto);
+		if (produto.getId() == null)
+			em.persist(produto);
+		else
+			em.merge(produto);
 	}
 
 }

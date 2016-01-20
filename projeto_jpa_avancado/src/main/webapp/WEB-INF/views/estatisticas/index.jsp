@@ -15,21 +15,16 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th></th>
-								<th>Abertas</th>
-								<th>Fechadas</th>
+								<th>Hit</th>
+								<th>Miss</th>
+								<th>Conexões</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>Transações</td>
-								<td>${transacoesAbertas}</td>
-								<td>${transacoesFechadas}</td>
-							</tr>
-							<tr>
-								<td>Conexões</td>
-								<td>${conexoesAbertas}</td>
-								<td>${conexoesFechadas}</td>
+								<td>${statistics.queryCacheHitCount}</td>
+								<td>${statistics.queryCacheMissCount}</td>
+								<td>${statistics.connectCount}</td>
 							</tr>
 						</tbody>
 					</table>

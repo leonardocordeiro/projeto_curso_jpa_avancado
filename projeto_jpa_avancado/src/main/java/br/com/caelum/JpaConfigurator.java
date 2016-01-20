@@ -44,8 +44,7 @@ public class JpaConfigurator {
 	}
 
 	@Bean
-	public LocalContainerEntityManagerFactoryBean getEntityManagerFactory(
-			DataSource dataSource) {
+	public LocalContainerEntityManagerFactoryBean getEntityManagerFactory(DataSource dataSource) {
 		LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
 
 		entityManagerFactory.setPackagesToScan("br.com.caelum");
@@ -56,16 +55,17 @@ public class JpaConfigurator {
 
 		Properties props = new Properties();
 
-		props.setProperty("hibernate.dialect",
-				"org.hibernate.dialect.MySQL5InnoDBDialect");
+		props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
 		props.setProperty("hibernate.show_sql", "true");
 		props.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 
+		
+		// Cache segundo nivel
 		props.setProperty("hibernate.cache.use_query_cache", "true");
-		props.setProperty("hibernate.generate_statistics", "false");
 		props.setProperty("hibernate.cache.use_second_level_cache", "true");
-		props.setProperty("hibernate.cache.region.factory_class",
-				"org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory");
+		props.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory");
+
+		props.setProperty("hibernate.generate_statistics", "true");
 
 		entityManagerFactory.setJpaProperties(props);
 		return entityManagerFactory;
