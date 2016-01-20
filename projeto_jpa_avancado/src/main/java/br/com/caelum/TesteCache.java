@@ -23,6 +23,7 @@ public class TesteCache {
 
 		List<Produto> produtos = (List<Produto>) new Dao(em).listar(Produto.class);
 		
+<<<<<<< HEAD
 		for (Produto produto : produtos) {
 			System.out.println(produto.getNome());
 		}
@@ -30,6 +31,8 @@ public class TesteCache {
 		Produto p = em.find(Produto.class, 1);
 		System.out.println("Nome: " + p.getNome());
 		
+=======
+>>>>>>> 29ceef63c1442af5be2e4e40388047ef8ac28f97
 //		Produto produto = em.find(Produto.class, 1);
 //		System.out.println("Nome: " + produto.getNome());
 //		

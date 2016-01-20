@@ -26,9 +26,13 @@ public class Inicializador extends AbstractAnnotationConfigDispatcherServletInit
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
 		
+<<<<<<< HEAD
 		// Descomente abaixo para ligar log4j!
 		
 		//servletContext.setInitParameter("log4jConfigLocation", "/WEB-INF/log4j.xml");
+=======
+		servletContext.setInitParameter("log4jConfigLocation", "/WEB-INF/log4j.xml");
+>>>>>>> 29ceef63c1442af5be2e4e40388047ef8ac28f97
 		//servletContext.addListener(new Log4jConfigListener());
 
 	}
